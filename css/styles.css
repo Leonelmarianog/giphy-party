@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(
+    45deg,
+    rgb(0, 143, 104),
+    rgb(0, 91, 143),
+    rgb(116, 66, 255)
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+
+body,
+#container,
+#gifs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#header,
+#GIPHY-form {
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  background: black;
+  width: 70%;
+  height: 100%;
+  position: relative;
+}
+
+#header {
+  width: 100%;
+  margin: 20px 0 10px 0;
+}
+
+#title {
+  white-space: nowrap;
+  margin: 0px;
+}
+
+#GIPHY-form {
+  background: black;
+  width: 70%;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+
+#search-query {
+  margin: 5px;
+}
+
+#submit-btn,
+#remove-btn {
+  border: none;
+  padding: 10px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#submit-btn {
+  background: rgb(116, 66, 255);
+  border-left: 4px solid rgb(135, 95, 245);
+  border-bottom: 4px solid rgb(135, 95, 245);
+}
+
+#remove-btn {
+  background: rgb(0, 143, 104);
+  border-left: 4px solid rgb(28, 184, 142);
+  border-bottom: 4px solid rgb(28, 184, 142);
+}
+
+#submit-btn:hover,
+#remove-btn:hover,
+#scrollToTop:hover {
+  filter: brightness(1.5);
+}
+
+#submit-btn:active,
+#remove-btn:active {
+  border: none;
+}
+
+#gifs-container {
+  background: black;
+  width: 100%;
+}
+
+#gifs-container img:nth-child(odd) {
+  margin: 20px;
+}
+
+#gifs-container img:last-child {
+  margin-bottom: 60px;
+}
+
+.gif {
+  display: block;
+  border: 5px solid;
+  border-image-source: linear-gradient(
+    220deg,
+    rgb(255, 62, 62),
+    rgb(250, 224, 66),
+    rgb(0, 143, 104),
+    rgb(0, 91, 143),
+    rgb(116, 66, 255)
+  );
+  border-image-slice: 1;
+  width: 50%;
+  height: auto;
+}
+
+#scrollToTop {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  padding: 10px;
+  background: rgb(0, 143, 104);
+  color: white;
+  font-size: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.invalid {
+  color: crimson;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 70%;
+  padding: 10px 0;
+  text-align: center;
+  background: black;
+}
+
+@media (max-width: 768px) {
+  #container {
+    width: 95%;
+  }
+  #header {
+    align-items: center;
+    flex-direction: column;
+  }
+  #GIPHY-form {
+    width: 95%;
+  }
+  .gif {
+    width: 80%;
+  }
+  #scrollToTop {
+    top: 90px;
+    right: 20px;
+  }
+  footer {
+    width: 95%;
+  }
+}
