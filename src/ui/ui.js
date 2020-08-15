@@ -16,9 +16,7 @@ function repositionForm(newPosition) {
   form.style.position = newPosition;
 }
 
-export function checkScroll() {
-  const amountScrolled = window.pageYOffset;
-  const windowHeight = document.documentElement.clientHeight;
+export function checkScroll(amountScrolled, windowHeight) {
   const scrollToTopButton = document.querySelector('#scrollToTop');
   if (scrollToTopButton) {
     if (amountScrolled < windowHeight) {
