@@ -34,13 +34,10 @@ export function checkScroll(amountScrolled, windowHeight) {
 
 export function updateHelper(newMessage) {
   const helper = document.querySelector('#helper p');
-  if (!helper.className && newMessage === '') return;
-  if (!helper.className && newMessage !== '') {
+  if (newMessage) {
     helper.classList.add('invalid');
     helper.textContent = newMessage;
-  }
-  if (helper.className === 'invalid' && newMessage !== '') return;
-  if (helper.className === 'invalid' && newMessage === '') {
+  } else {
     helper.classList.remove('invalid');
     helper.textContent = newMessage;
   }
