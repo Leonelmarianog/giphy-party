@@ -1,14 +1,16 @@
-import getGifsUrls from '../api/api.js';
-import { addNewGif, updateHelper } from '../ui/ui.js';
-
-export default async function findGif(event) {
+export default async function findGif(
+  event,
+  getGifsUrlsCallback,
+  addNewGifCallback,
+  updateHelperCallback
+) {
   event.preventDefault();
   const searchQuery = document.querySelector('#search-query').value;
   try {
-    const gifsUrls = await getGifsUrls(searchQuery);
-    updateHelper('');
-    addNewGif(gifsUrls);
+    const gifsUrls = await getGifsUrlsCallback(searchQuery);
+    updateHelperCallback('');
+    addNewGifCallback(gifsUrls);
   } catch (err) {
-    updateHelper(err.message);
+    updateHelperCallback(err.message);
   }
 }
