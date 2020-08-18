@@ -1,5 +1,5 @@
 import getGifs from '../api.js';
-import dogGifsFixture from './dogGifsFixture.json';
+import dogGifsFixture from './fixtures/dogGifsFixture.json';
 
 describe('getGifs', () => {
   beforeEach(() => {
