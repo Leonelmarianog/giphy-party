@@ -15,7 +15,7 @@ describe('findGifs', async () => {
     const searchQuery = 'dog';
 
     document.body.innerHTML = fs.readFileSync(
-      'src/ui/__tests__/fixtures/index.fixture.html'
+      'src/services/__tests__/fixtures/index.fixture.html'
     );
 
     document.querySelector('#search-query').value = searchQuery;
@@ -44,7 +44,7 @@ describe('findGifs', async () => {
     const searchQuery = 'asdfghjklñ';
 
     document.body.innerHTML = fs.readFileSync(
-      'src/ui/__tests__/fixtures/index.fixture.html'
+      'src/services/__tests__/fixtures/index.fixture.html'
     );
 
     document.querySelector('#search-query').value = searchQuery;
