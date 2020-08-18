@@ -14,7 +14,9 @@ describe('findGifs', async () => {
     const mockAddNewGif = jest.fn();
     const searchQuery = 'dog';
 
-    document.body.innerHTML = fs.readFileSync('index.html');
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index.fixture.html'
+    );
 
     document.querySelector('#search-query').value = searchQuery;
 
@@ -41,7 +43,9 @@ describe('findGifs', async () => {
     const mockAddNewGif = jest.fn();
     const searchQuery = 'asdfghjklñ';
 
-    document.body.innerHTML = fs.readFileSync('index.html');
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index.fixture.html'
+    );
 
     document.querySelector('#search-query').value = searchQuery;
 
