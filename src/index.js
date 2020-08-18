@@ -14,7 +14,7 @@ window.onload = () => {
   document.addEventListener('scroll', () => {
     checkScroll(window.pageYOffset, document.documentElement.clientHeight);
   });
-  submitButton.addEventListener('click', () => {
+  submitButton.addEventListener('click', (event) => {
     findGif(event, getGifsUrls, addNewGif, updateHelper);
   });
   removeButton.addEventListener('click', removeAllGifs);
