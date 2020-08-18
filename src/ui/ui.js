@@ -18,17 +18,12 @@ function repositionForm(newPosition) {
 
 export function checkScroll(amountScrolled, windowHeight) {
   const scrollToTopButton = document.querySelector('#scrollToTop');
-  if (scrollToTopButton) {
-    if (amountScrolled < windowHeight) {
-      repositionForm('');
-      scrollToTopButton.remove();
-    }
-  } else {
-    // eslint-disable-next-line no-lonely-if
-    if (amountScrolled > windowHeight) {
-      repositionForm('fixed');
-      renderButton();
-    }
+  if (amountScrolled < windowHeight && scrollToTopButton) {
+    repositionForm('');
+    scrollToTopButton.remove();
+  } else if (amountScrolled >= windowHeight && !scrollToTopButton) {
+    repositionForm('fixed');
+    renderButton();
   }
 }
 
