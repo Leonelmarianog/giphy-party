@@ -2,29 +2,26 @@ function scrollToTop() {
   window.scrollTo(0, 0);
 }
 
-function renderButton() {
+export function deleteButton() {
+  const renderedButton = document.querySelector('#scrollToTop');
+  if (!renderedButton) return;
+  renderedButton.remove();
+}
+
+export function renderButton() {
+  const renderedButton = document.querySelector('#scrollToTop');
+  if (renderedButton) return;
   const container = document.querySelector('#container');
   const scrollToTopButton = document.createElement('button');
   scrollToTopButton.id = 'scrollToTop';
-  scrollToTopButton.textContent = '▲';
+  scrollToTopButton.textContent = '';
   scrollToTopButton.onclick = scrollToTop;
   container.prepend(scrollToTopButton);
 }
 
-function repositionForm(newPosition) {
+export function repositionForm(newPosition) {
   const form = document.querySelector('#GIPHY-form');
   form.style.position = newPosition;
-}
-
-export function checkScroll(amountScrolled, windowHeight) {
-  const scrollToTopButton = document.querySelector('#scrollToTop');
-  if (amountScrolled < windowHeight && scrollToTopButton) {
-    repositionForm('');
-    scrollToTopButton.remove();
-  } else if (amountScrolled >= windowHeight && !scrollToTopButton) {
-    repositionForm('fixed');
-    renderButton();
-  }
 }
 
 export function updateHelper(newMessage) {

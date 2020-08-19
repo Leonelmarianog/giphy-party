@@ -1,4 +1,4 @@
-export default async function findGif(
+export async function findGif(
   event,
   getGifsUrlsCallback,
   addNewGifCallback,
@@ -12,5 +12,21 @@ export default async function findGif(
     addNewGifCallback(gifsUrls);
   } catch (err) {
     updateHelperCallback(err.message);
+  }
+}
+
+export function checkScroll(
+  amountScrolled,
+  windowHeight,
+  repositionFormCallback,
+  renderButtonCallback,
+  deleteButtonCallback
+) {
+  if (amountScrolled < windowHeight) {
+    repositionFormCallback('');
+    deleteButtonCallback();
+  } else if (amountScrolled >= windowHeight) {
+    repositionFormCallback('fixed');
+    renderButtonCallback();
   }
 }
