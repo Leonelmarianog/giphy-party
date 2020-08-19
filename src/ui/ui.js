@@ -4,17 +4,17 @@ function scrollToTop() {
 
 export function deleteButton() {
   const renderedButton = document.querySelector('#scrollToTop');
-  if (!renderedButton) return;
+  if (!renderedButton) return false;
   renderedButton.remove();
 }
 
 export function renderButton() {
   const renderedButton = document.querySelector('#scrollToTop');
-  if (renderedButton) return;
+  if (renderedButton) return false;
   const container = document.querySelector('#container');
   const scrollToTopButton = document.createElement('button');
   scrollToTopButton.id = 'scrollToTop';
-  scrollToTopButton.textContent = '';
+  scrollToTopButton.textContent = '▲';
   scrollToTopButton.onclick = scrollToTop;
   container.prepend(scrollToTopButton);
 }
