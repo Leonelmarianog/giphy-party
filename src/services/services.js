@@ -1,4 +1,4 @@
-export default async function loadGifs(
+export default async function getGifsData(
   fetchDataCallback,
   updateHelperCallback
 ) {

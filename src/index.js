@@ -1,4 +1,4 @@
-import loadGifs from './services/services.js';
+import getGifsData from './services/services.js';
 import {
   deleteButton,
   renderButton,
@@ -27,7 +27,7 @@ window.onload = () => {
 
   submitButton.addEventListener('click', async (event) => {
     event.preventDefault();
-    const gifsData = await loadGifs(fetchData, updateHelper);
+    const gifsData = await getGifsData(fetchData, updateHelper);
     if (gifsData.data.length === 0) {
       return updateHelper("Can't find gifs with that term.");
     }
