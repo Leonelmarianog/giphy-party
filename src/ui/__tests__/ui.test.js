@@ -1,40 +1,76 @@
-import { checkScroll, updateHelper, addNewGif, removeAllGifs } from '../ui.js';
+import {
+  deleteButton,
+  renderButton,
+  repositionForm,
+  updateHelper,
+  addNewGif,
+  removeAllGifs,
+} from '../ui.js';
 import fs from 'fs';
 
-// '<div id="container"><button id="scrollToTop">▲</button><form action="#" id="GIPHY-form" style="position: fixed;"></form></div>'
-
-describe('checkScroll', () => {
-  it("Updates form position and renders button when amount scrolled is bigger than window's height", () => {
-    document.body.innerHTML = fs.readFileSync(
-      'src/ui/__tests__/fixtures/index1.fixture.html'
-    );
-    const amountScrolled = 700;
-    const windowHeight = 600;
-
-    checkScroll(amountScrolled, windowHeight);
-    expect(document.querySelector('#scrollToTop')).toBeTruthy();
-    expect(document.querySelector('#GIPHY-form').getAttribute('style')).toBe(
-      'position: fixed;'
-    );
-  });
-
-  it("Updates form position and removes button when amount scrolled is less than window's height", () => {
+describe('deleteButton', () => {
+  it('Deletes a button element if it exists', () => {
     document.body.innerHTML = fs.readFileSync(
       'src/ui/__tests__/fixtures/index2.fixture.html'
     );
-    const amountScrolled = 500;
-    const windowHeight = 600;
 
-    checkScroll(amountScrolled, windowHeight);
+    deleteButton();
     expect(document.querySelector('#scrollToTop')).toBeFalsy();
+  });
+
+  it('Returns if there is no button to delete', () => {
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index1.fixture.html'
+    );
+
+    expect(deleteButton()).toBeFalsy();
+  });
+});
+
+describe('renderButton', () => {
+  it("Creates a new button element if one doesn't exist yet and prepends it to the container element", () => {
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index1.fixture.html'
+    );
+    global.scrollTo = jest.fn();
+
+    renderButton();
+    expect(document.querySelector('#scrollToTop')).toBeTruthy();
+    expect(document.querySelector('#scrollToTop').textContent).toBe('▲');
+    expect(
+      document
+        .querySelector('#container')
+        .contains(document.querySelector('#scrollToTop'))
+    ).toBeTruthy();
+
+    document.querySelector('#scrollToTop').click();
+    expect(global.scrollTo).toBeCalledTimes(1);
+  });
+
+  it('Returns if there is a button already on the page', () => {
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index2.fixture.html'
+    );
+
+    expect(renderButton()).toBeFalsy();
+  });
+});
+
+describe('repositionForm', () => {
+  it('Changes form position', () => {
+    document.body.innerHTML = fs.readFileSync(
+      'src/ui/__tests__/fixtures/index1.fixture.html'
+    );
+
+    repositionForm('fixed');
     expect(document.querySelector('#GIPHY-form').getAttribute('style')).toBe(
-      ''
+      'position: fixed;'
     );
   });
 });
 
 describe('updateHelper', () => {
-  it('Alerts the user when a request is not ok or a gif is not found', () => {
+  it('Alerts the user when something happens', () => {
     document.body.innerHTML = fs.readFileSync(
       'src/ui/__tests__/fixtures/index1.fixture.html'
     );

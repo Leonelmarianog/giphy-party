@@ -1,12 +1,12 @@
-import getGifs from '../api.js';
+import fetchData from '../api.js';
 import dogGifsFixture from './fixtures/dogGifsFixture.json';
 
-describe('getGifs', () => {
+describe('fetchData', () => {
   beforeEach(() => {
     global.fetch = jest.fn();
   });
 
-  it('Returns an array with data when the request is OK', () => {
+  it('Returns an array with data when the request is OK', async () => {
     global.fetch.mockImplementationOnce(
       () =>
         new Promise((resolve) => {
@@ -16,40 +16,30 @@ describe('getGifs', () => {
           });
         })
     );
-    const searchTerm = 'dog';
-    return expect(getGifs(searchTerm)).resolves.toBeInstanceOf(Array);
+    const searchQuery = 'dog';
+
+    await expect(fetchData(searchQuery)).resolves.toBeInstanceOf(Object);
+    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledWith(
+      `https://api.giphy.com/v1/gifs/search?api_key=dyhxkzTTwEEMUNuC5zjFX5Hzt6bsClFU&q=${searchQuery}&limit=25&offset=0&rating=g&lang=en`
+    );
   });
 
-  it('Throws an error when the request fails', () => {
+  it('Throws an error when the request fails', async () => {
     global.fetch.mockImplementationOnce(
       () =>
         new Promise((reject) => {
           reject({ ok: false });
         })
     );
-    const searchTerm = 'dog';
-    return expect(getGifs(searchTerm)).rejects.toThrow(
+    const searchQuery = 'dog';
+
+    await expect(fetchData(searchQuery)).rejects.toThrow(
       'Something happened, please try again in a few minutes!.'
     );
-  });
-
-  it('Throw an error when there is no data that matches the search term', () => {
-    global.fetch.mockImplementationOnce(
-      () =>
-        new Promise((resolve) => {
-          resolve({
-            ok: true,
-            json: () => {
-              return {
-                data: [],
-              };
-            },
-          });
-        })
-    );
-    const searchTerm = 'zxcvbnmasdfghjklñ';
-    return expect(getGifs(searchTerm)).rejects.toThrow(
-      "Can't find any gifs that matches the search term."
+    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledWith(
+      `https://api.giphy.com/v1/gifs/search?api_key=dyhxkzTTwEEMUNuC5zjFX5Hzt6bsClFU&q=${searchQuery}&limit=25&offset=0&rating=g&lang=en`
     );
   });
 });
