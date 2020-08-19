@@ -11,9 +11,5 @@ export default async function getGifsUrls(searchQuery) {
 
   const responseJSON = await response.json();
 
-  if (responseJSON.data.length === 0) {
-    throw new Error("Can't find any gifs that matches the search term.");
-  }
-
-  return responseJSON.data.map((obj) => obj.images.original.url);
+  return responseJSON;
 }
