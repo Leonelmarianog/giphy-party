@@ -28,6 +28,9 @@ window.onload = () => {
   submitButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const gifsData = await loadGifs(fetchData, updateHelper);
+    if (gifsData.data.length === 0) {
+      return updateHelper("Can't find gifs with that term.");
+    }
     const gifsUrls = gifsData.data.map((obj) => obj.images.original.url);
     const randomIndex = Math.floor(Math.random() * gifsUrls.length);
     const gifUrl = gifsUrls[randomIndex];
