@@ -1,4 +1,4 @@
-export default async function getGifsUrls(searchQuery) {
+export default async function fetchData(searchQuery) {
   // yes, I know storing the api key here is a terrible idea, but hey, we are just requesting GIFS to a public API,
   // not some super important and private information from a database
   const response = await fetch(
