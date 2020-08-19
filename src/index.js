@@ -1,4 +1,4 @@
-import findGif from './services/services.js';
+import loadGifs from './services/services.js';
 import {
   deleteButton,
   renderButton,
@@ -27,7 +27,7 @@ window.onload = () => {
 
   submitButton.addEventListener('click', async (event) => {
     event.preventDefault();
-    const gifsData = await findGif(fetchData, updateHelper);
+    const gifsData = await loadGifs(fetchData, updateHelper);
     const gifsUrls = gifsData.data.map((obj) => obj.images.original.url);
     const randomIndex = Math.floor(Math.random() * gifsUrls.length);
     const gifUrl = gifsUrls[randomIndex];
