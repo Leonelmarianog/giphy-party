@@ -25,8 +25,14 @@ window.onload = () => {
     }
   });
 
-  submitButton.addEventListener('click', (event) => {
-    findGif(event, getGifsUrls, addNewGif, updateHelper);
+  submitButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const gifsData = await findGif(getGifsUrls, updateHelper);
+    const gifsUrls = gifsData.data.map((obj) => obj.images.original.url);
+    const randomIndex = Math.floor(Math.random() * gifsUrls.length);
+    const gifUrl = gifsUrls[randomIndex];
+    addNewGif(gifUrl);
+    updateHelper('');
   });
 
   removeButton.addEventListener('click', removeAllGifs);

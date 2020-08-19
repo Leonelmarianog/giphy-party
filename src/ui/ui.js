@@ -35,11 +35,10 @@ export function updateHelper(newMessage) {
   }
 }
 
-export function addNewGif(gifsUrls) {
+export function addNewGif(gifUrl) {
   const gifsContainer = document.querySelector('#gifs-container');
   const imgElem = document.createElement('img');
-  const randomIndex = Math.floor(Math.random() * gifsUrls.length);
-  imgElem.src = gifsUrls[randomIndex];
+  imgElem.src = gifUrl;
   imgElem.classList.add('gif');
   imgElem.loading = 'lazy';
   gifsContainer.append(imgElem);

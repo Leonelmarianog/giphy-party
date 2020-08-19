@@ -1,15 +1,10 @@
-export async function findGif(
-  event,
+export default async function findGif(
   getGifsUrlsCallback,
-  addNewGifCallback,
   updateHelperCallback
 ) {
-  event.preventDefault();
   const searchQuery = document.querySelector('#search-query').value;
   try {
-    const gifsUrls = await getGifsUrlsCallback(searchQuery);
-    updateHelperCallback('');
-    addNewGifCallback(gifsUrls);
+    return await getGifsUrlsCallback(searchQuery);
   } catch (err) {
     updateHelperCallback(err.message);
   }
