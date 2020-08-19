@@ -14,19 +14,3 @@ export async function findGif(
     updateHelperCallback(err.message);
   }
 }
-
-export function checkScroll(
-  amountScrolled,
-  windowHeight,
-  repositionFormCallback,
-  renderButtonCallback,
-  deleteButtonCallback
-) {
-  if (amountScrolled < windowHeight) {
-    repositionFormCallback('');
-    deleteButtonCallback();
-  } else if (amountScrolled >= windowHeight) {
-    repositionFormCallback('fixed');
-    renderButtonCallback();
-  }
-}

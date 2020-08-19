@@ -1,4 +1,4 @@
-import { findGif, checkScroll } from './services/services.js';
+import findGif from './services/services.js';
 import {
   deleteButton,
   renderButton,
@@ -14,13 +14,15 @@ window.onload = () => {
   const removeButton = document.querySelector('#remove-btn');
 
   document.addEventListener('scroll', () => {
-    checkScroll(
-      window.pageYOffset,
-      document.documentElement.clientHeight,
-      repositionForm,
-      renderButton,
-      deleteButton
-    );
+    const amountScrolled = window.pageYOffset;
+    const windowHeight = document.documentElement.clientHeight;
+    if (amountScrolled < windowHeight) {
+      repositionForm('');
+      deleteButton();
+    } else if (amountScrolled >= windowHeight) {
+      repositionForm('fixed');
+      renderButton();
+    }
   });
 
   submitButton.addEventListener('click', (event) => {
