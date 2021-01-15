@@ -1,42 +1,31 @@
-import getGifsData from './services/services.js';
+import getGifService from './services/services.js';
 import {
-  deleteButton,
-  renderButton,
-  repositionForm,
+  setGifAddListener,
+  setGifRemoveListener,
+  displayGif,
   removeAllGifs,
-  addNewGif,
-  updateHelper,
-} from './ui/ui.js';
-import fetchData from './api/api.js';
+  setScrollListener,
+  showHelper,
+} from './ui/index.js';
 
-window.onload = () => {
-  const submitButton = document.querySelector('#submit-btn');
-  const removeButton = document.querySelector('#remove-btn');
-
-  document.addEventListener('scroll', () => {
-    const amountScrolled = window.pageYOffset;
-    const windowHeight = document.documentElement.clientHeight;
-    if (amountScrolled < windowHeight) {
-      repositionForm('');
-      deleteButton();
-    } else if (amountScrolled >= windowHeight) {
-      repositionForm('fixed');
-      renderButton();
+async function loadGif(searchTerm) {
+  showHelper('');
+  try {
+    if (!searchTerm) {
+      throw new Error('A search term is needed in order to load a gif.');
     }
-  });
 
-  submitButton.addEventListener('click', async (event) => {
-    event.preventDefault();
-    const gifsData = await getGifsData(fetchData, updateHelper);
-    if (gifsData.data.length === 0) {
-      return updateHelper("Can't find gifs with that term.");
-    }
-    const gifsUrls = gifsData.data.map((obj) => obj.images.original.url);
-    const randomIndex = Math.floor(Math.random() * gifsUrls.length);
-    const gifUrl = gifsUrls[randomIndex];
-    addNewGif(gifUrl);
-    updateHelper('');
-  });
+    const gifUrl = await getGifService(searchTerm);
+    displayGif(gifUrl);
+  } catch (error) {
+    showHelper(error.message);
+  }
+}
 
-  removeButton.addEventListener('click', removeAllGifs);
-};
+export default function init() {
+  setGifAddListener(loadGif);
+  setGifRemoveListener(removeAllGifs);
+  setScrollListener();
+}
+
+init();
