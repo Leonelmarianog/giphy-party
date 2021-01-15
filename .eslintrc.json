@@ -1,19 +1,25 @@
 {
   "env": {
     "browser": true,
-    "es2020": true,
+    "es6": true,
+    "cypress/globals": true,
     "jest/globals": true
   },
   "extends": ["airbnb-base", "prettier"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
   "parserOptions": {
-    "ecmaVersion": 11,
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["jest"],
   "rules": {
     "import/extensions": [
       "error",
       {
-        "js": "always",
+        "js": "sometimes",
         "json": "sometimes"
       }
     ]
