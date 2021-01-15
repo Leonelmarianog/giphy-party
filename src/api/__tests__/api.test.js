@@ -1,45 +1,59 @@
-import fetchData from '../api.js';
+import getGif from '../api.js';
 import dogGifsFixture from './fixtures/dogGifsFixture.json';
 
-describe('fetchData', () => {
-  beforeEach(() => {
-    global.fetch = jest.fn();
-  });
+beforeAll(() => {
+  global.fetch = jest.fn();
+});
 
-  it('Returns an array with data when the request is OK', async () => {
+afterEach(() => jest.clearAllMocks());
+
+describe('getGif', () => {
+  it('Returns data when request is OK', async () => {
+    const responseMock = {
+      ok: true,
+      json: jest.fn().mockImplementationOnce(() => dogGifsFixture),
+    };
+
     global.fetch.mockImplementationOnce(
       () =>
         new Promise((resolve) => {
-          resolve({
-            ok: true,
-            json: () => dogGifsFixture,
-          });
+          resolve(responseMock);
         })
     );
-    const searchQuery = 'dog';
 
-    await expect(fetchData(searchQuery)).resolves.toBeInstanceOf(Object);
-    expect(global.fetch).toBeCalledTimes(1);
-    expect(global.fetch).toBeCalledWith(
-      `https://api.giphy.com/v1/gifs/search?api_key=dyhxkzTTwEEMUNuC5zjFX5Hzt6bsClFU&q=${searchQuery}&limit=25&offset=0&rating=g&lang=en`
-    );
+    const data = await getGif('dog');
+
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toBeCalledWith(expect.any(String));
+    expect(responseMock.json).toHaveBeenCalledTimes(1);
+    expect(data).toBeInstanceOf(Object);
   });
 
   it('Throws an error when the request fails', async () => {
+    const responseMock = { ok: false };
     global.fetch.mockImplementationOnce(
       () =>
         new Promise((reject) => {
-          reject({ ok: false });
+          reject(responseMock);
         })
     );
-    const searchQuery = 'dog';
 
-    await expect(fetchData(searchQuery)).rejects.toThrow(
-      'Something happened, please try again in a few minutes!.'
-    );
-    expect(global.fetch).toBeCalledTimes(1);
-    expect(global.fetch).toBeCalledWith(
-      `https://api.giphy.com/v1/gifs/search?api_key=dyhxkzTTwEEMUNuC5zjFX5Hzt6bsClFU&q=${searchQuery}&limit=25&offset=0&rating=g&lang=en`
-    );
+    try {
+      getGif('dog');
+    } catch (error) {
+      expect(global.fetch).toBeCalledTimes(1);
+      expect(global.fetch).toBeCalledWith(expect.any(String));
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBeDefined();
+    }
+  });
+
+  it('Throws an error if no search term is passed', async () => {
+    try {
+      getGif();
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBeDefined();
+    }
   });
 });
