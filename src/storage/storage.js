@@ -16,11 +16,11 @@ export function getGifs(collectionName) {
     throw new Error('An identifier is needed in order to get a gif from storage');
   }
 
-  const gifCollection = JSON.parse(localStorage.getItem(collectionName));
+  const gifCollectionData = JSON.parse(localStorage.getItem(collectionName));
 
-  if (!gifCollection) {
+  if (!gifCollectionData) {
     throw new Error('No collection found.');
   }
 
-  return gifCollection;
+  return gifCollectionData;
 }
