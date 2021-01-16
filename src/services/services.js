@@ -23,7 +23,6 @@ export default async function getGif(searchTerm) {
     }
 
     gifCollection = fromAPIToEntity(searchTerm, results);
-
     saveGifsInStorage(gifCollection);
   }
 
