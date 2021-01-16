@@ -1,25 +1,33 @@
-import getGifFromAPI from '../api/api.js';
+import getGifsFromAPI from '../api/api.js';
+import {
+  getGifs as getGifsFromStorage,
+  saveGifs as saveGifsInStorage,
+} from '../storage/storage.js';
+import { fromAPIToEntity, fromStorageToEntity } from '../mappers/mappers.js';
 
 export default async function getGif(searchTerm) {
   if (!searchTerm) {
     throw new Error('A search term is needed in order to get a gif.');
   }
 
-  let gifUrl = null;
+  let gifCollection;
 
   try {
-    const gifsData = await getGifFromAPI(searchTerm);
+    const gifCollectionData = getGifsFromStorage(searchTerm);
+    gifCollection = fromStorageToEntity(gifCollectionData);
+  } catch (error) {
+    const results = await getGifsFromAPI(searchTerm);
 
-    if (gifsData.data.length === 0) {
+    if (results.data.length === 0) {
       throw new Error('No results.');
     }
 
-    const gifsUrls = gifsData.data.map((obj) => obj.images.original.url);
-    const randomIndex = Math.floor(Math.random() * gifsUrls.length);
-    gifUrl = gifsUrls[randomIndex];
-  } catch (error) {
-    throw error;
+    gifCollection = fromAPIToEntity(searchTerm, results);
+
+    saveGifsInStorage(gifCollection);
   }
 
-  return gifUrl;
+  const randomIndex = Math.floor(Math.random() * gifCollection.gifs.length);
+  const gif = gifCollection.gifs[randomIndex];
+  return gif;
 }
