@@ -1,54 +1,77 @@
-import getGifsData from '../services.js';
-import fs from 'fs';
+import getGif from '../services.js';
+import dogGifsFixture from './fixtures/dogGifsFixture.json';
+import getGifsFromAPI from '../../api/api.js';
+import {
+  getGifs as getGifsFromStorage,
+  saveGifs as saveGifsInStorage,
+} from '../../storage/storage.js';
+import GifCollection from '../../entities/GifCollection.js';
 
-describe('getGifsData', async () => {
-  it('calls fetchData and returns an object', async () => {
-    const mockFetchData = jest.fn(
-      () =>
-        new Promise((resolve) => {
-          resolve({});
-        })
-    );
-    const mockUpdateHelper = jest.fn();
-    const searchQuery = 'dog';
+jest.mock('../../api/api.js');
+jest.mock('../../storage/storage.js');
 
-    document.body.innerHTML = fs.readFileSync(
-      'src/services/__tests__/fixtures/index.fixture.html'
-    );
+beforeAll(() => {
+  global.fetch = jest.fn();
+});
 
-    document.querySelector('#search-query').value = searchQuery;
+afterEach(() => jest.clearAllMocks());
 
-    await expect(
-      getGifsData(mockFetchData, mockUpdateHelper)
-    ).resolves.toBeInstanceOf(Object);
-    expect(mockFetchData).toBeCalledWith(searchQuery);
-    expect(mockFetchData).toBeCalledTimes(1);
-    expect(mockUpdateHelper).toBeCalledTimes(0);
+describe('getGif', () => {
+  it('Returns a random gif from local storage', async () => {
+    const gifCollectionDataMock = {
+      name: 'dogs',
+      gifs: ['dog1.gif', 'dog2.gif', 'dog3.gif'],
+    };
+
+    getGifsFromStorage.mockImplementationOnce(() => gifCollectionDataMock);
+
+    const gif = await getGif('dogs');
+
+    expect(gif).toEqual(expect.any(String));
+    expect(getGifsFromStorage).toHaveBeenCalledTimes(1);
+    expect(getGifsFromStorage).toHaveBeenCalledWith('dogs');
+    expect(getGifsFromAPI).toHaveBeenCalledTimes(0);
   });
 
-  it('Only calls updateHelper when request is not OK', async () => {
-    const mockFetchData = jest.fn(
-      () =>
-        new Promise(() => {
-          throw new Error(error);
-        })
-    );
-    const mockUpdateHelper = jest.fn();
-    const searchQuery = 'asdfghjklñ';
-    const error = 'The Error';
+  it('Returns a random gif from the API', async () => {
+    getGifsFromStorage.mockImplementationOnce(() => {
+      throw new Error('No gifs in storage.');
+    });
+    getGifsFromAPI.mockImplementationOnce(() => dogGifsFixture);
 
-    document.body.innerHTML = fs.readFileSync(
-      'src/services/__tests__/fixtures/index.fixture.html'
-    );
+    const gif = await getGif('dogs');
 
-    document.querySelector('#search-query').value = searchQuery;
+    expect(gif).toEqual(expect.any(String));
+    expect(getGifsFromAPI).toHaveBeenCalledTimes(1);
+    expect(getGifsFromAPI).toHaveBeenCalledWith('dogs');
+    expect(saveGifsInStorage).toHaveBeenCalledTimes(1);
+    expect(saveGifsInStorage).toHaveBeenCalledWith(expect.any(GifCollection));
+  });
 
-    await expect(getGifsData(mockFetchData, mockUpdateHelper)).resolves.toBe(
-      undefined
-    );
-    expect(mockFetchData).toBeCalledWith(searchQuery);
-    expect(mockFetchData).toBeCalledTimes(1);
-    expect(mockUpdateHelper).toBeCalledWith(error);
-    expect(mockUpdateHelper).toBeCalledTimes(1);
+  it('Throws an error if there is no search term', async () => {
+    try {
+      await getGif();
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toEqual(expect.any(String));
+    }
+  });
+
+  it('Throws an error if there are no results', async () => {
+    const resultsMock = {
+      data: [],
+    };
+
+    getGifsFromStorage.mockImplementationOnce(() => {
+      throw new Error('No gifs in storage.');
+    });
+    getGifsFromAPI.mockImplementationOnce(() => resultsMock);
+
+    try {
+      await getGif('dogs');
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toEqual(expect.any(String));
+    }
   });
 });
