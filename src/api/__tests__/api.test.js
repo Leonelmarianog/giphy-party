@@ -8,7 +8,7 @@ beforeAll(() => {
 afterEach(() => jest.clearAllMocks());
 
 describe('getGif', () => {
-  it('Returns data when request is OK', async () => {
+  it('Returns an object when request is OK', async () => {
     const responseMock = {
       ok: true,
       json: jest.fn().mockImplementationOnce(() => dogGifsFixture),
@@ -39,21 +39,21 @@ describe('getGif', () => {
     );
 
     try {
-      getGif('dog');
+      await getGif('dog');
     } catch (error) {
       expect(global.fetch).toBeCalledTimes(1);
       expect(global.fetch).toBeCalledWith(expect.any(String));
       expect(error).toBeInstanceOf(Error);
-      expect(error.message).toBeDefined();
+      expect(error.message).toEqual(expect.any(String));
     }
   });
 
   it('Throws an error if no search term is passed', async () => {
     try {
-      getGif();
+      await getGif();
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
-      expect(error.message).toBeDefined();
+      expect(error.message).toEqual(expect.any(String));
     }
   });
 });
