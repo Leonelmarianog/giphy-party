@@ -18,7 +18,7 @@ function cleanCSS() {
 function compileSASS() {
   return src(`${styles.input}/**/*.scss`)
     .pipe(isDevelopment ? sourcemaps.init() : noop())
-    .pipe(sass().on('error', console.error))
+    .pipe(sass().on('error', sass.logError))
     .pipe(isDevelopment ? sourcemaps.write() : noop())
     .pipe(dest(styles.output));
 }
