@@ -1,0 +1,38 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $background-color-1;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: $font-family;
+  color: $text-color;
+}
+
+.container {
+  background-color: $background-color-2;
+}
+
+header {
+  font-size: $font-size;
+}
+
+.form-fixed {
+  position: fixed;
+  background: $background-color-2;
+  width: 70%;
+  padding: 1em;
+}
+
+.helper {
+  font-size: $font-size;
+}
+
+.gifs-container {
+  background: $background-color-2;
+}
+
+.error {
+  color: $error;
+}
