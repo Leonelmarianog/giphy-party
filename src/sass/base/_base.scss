@@ -1,0 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $background-color-primary;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.container {
+  background-color: $background-color-secondary;
+}
+
+.gifs-container {
+  background: $background-color-secondary;
+}

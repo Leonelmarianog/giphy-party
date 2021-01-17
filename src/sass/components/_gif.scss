@@ -1,7 +1,7 @@
 .gif {
   display: block;
   border: 0.5em solid;
-  border-image-source: $gif-border;
+  border-image-source: $gif-border-color;
   border-image-slice: 1;
   width: 70%;
   height: auto;

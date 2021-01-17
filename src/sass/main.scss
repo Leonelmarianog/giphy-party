@@ -1,9 +1,18 @@
 @import 'vendors/normalize.css';
-@import 'base/reset';
+
 @import 'abstracts/colors';
 @import 'abstracts/typography';
+
+@import 'base/base';
+@import 'base/helpers';
+@import 'base/reset';
+@import 'base/typography';
+
 @import 'components/buttons';
-@import 'components/inputs';
 @import 'components/gif';
-@import 'layout/giphy';
-@import 'pages/giphy';
+@import 'components/inputs';
+
+@import 'layout/base';
+@import 'layout/form';
+@import 'layout/header';
+@import 'layout/main';

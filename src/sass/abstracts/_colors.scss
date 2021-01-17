@@ -1,16 +1,20 @@
-$background-color-1: linear-gradient(45deg, #008a6c, #00538a, #7337ff);
-$background-color-2: #000000;
+$background-color-primary: linear-gradient(45deg, #008a6c, #00538a, #7337ff);
+$background-color-secondary: #000000;
 
-$btn-green: #01c298;
-$btn-green-border-left: #008a6c;
-$btn-green-border-bottom: #016953;
+$btn-green: (
+  background: #01c298,
+  border-left: #008a6c,
+  border-bottom: #016953,
+);
 
-$btn-purple: #8957fd;
-$btn-purple-border-left: #7337ff;
-$btn-purple-border-bottom: #5810ff;
+$btn-purple: (
+  background: #8957fd,
+  border-left: #7337ff,
+  border-bottom: #5810ff,
+);
 
-$gif-border: linear-gradient(220deg, #f73c3c, #fcff4a, #008a6c, #00538a, #7337ff);
+$gif-border-color: linear-gradient(220deg, #f73c3c, #fcff4a, #008a6c, #00538a, #7337ff);
 
-$error: crimson;
+$error-color: crimson;
 
-$text-color: #ffffff;
+$text-color-base: #ffffff;
