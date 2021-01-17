@@ -8,26 +8,26 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  <div id="container">
-    <header id="header">
-      <h1 id="title">GIPHY PARTY</h1>
-      <img src="./img/PoweredBy_200_Horizontal_Light-Backgrounds_With_Logo.gif">
-    </header>
-
-    <form action="#" id="GIPHY-form">
-      <input type="text" name="search-query" id="search-query" required>
-      <button type="submit" id="submit-btn">Search!</button>
-      <button id="remove-btn">Remove All</button>
-    </form>
-
-    <div id="helper">
-      <p>Please enter a search term.</p>
+  <main>
+    <div class="container" id="container">
+      <header>
+        <h1>GIPHY PARTY</h1>
+        <img src="./img/PoweredBy_200_Horizontal_Light-Backgrounds_With_Logo.gif">
+      </header>
+  
+      <form id="form">
+        <input type="text" name="search-term" class="search-input" id="search-input" required>
+        <button class="btn btn-green" id="search-btn">Search!</button>
+        <button class="btn btn-purple" id="remove-all-btn">Remove All</button>
+      </form>
+  
+      <div class="helper" id="helper">
+        <p>Please enter a search term.</p>
+      </div>
+  
+      <div class="gifs-container" id="gifs-container"></div>
     </div>
-
-    <main id="gifs-container"></main>
-
-    <footer>Copyright &copy; Leonel Gauna - 2020</footer>
-  </div>
+  </main>
   <script src="./js/index.js"></script>
 </body>
 </html>

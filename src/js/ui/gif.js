@@ -3,15 +3,15 @@ export function displayGif(gifUrl) {
     throw new Error('A gif is needed in order to display it.');
   }
 
-  const gifsContainer = document.querySelector('#gifs-container');
-  const imgElem = document.createElement('img');
-  imgElem.src = gifUrl;
-  imgElem.classList.add('gif');
-  imgElem.loading = 'lazy';
-  gifsContainer.append(imgElem);
+  const $gifsContainer = document.querySelector('#gifs-container');
+  const $gif = document.createElement('img');
+  $gif.src = gifUrl;
+  $gif.classList.add('gif');
+  $gif.loading = 'lazy';
+  $gifsContainer.append($gif);
 }
 
 export function removeAllGifs() {
-  const gifsContainer = document.querySelector('#gifs-container');
-  gifsContainer.innerHTML = null;
+  const $gifsContainer = document.querySelector('#gifs-container');
+  $gifsContainer.innerHTML = null;
 }
