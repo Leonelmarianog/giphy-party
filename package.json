@@ -8,8 +8,8 @@
     "test:dev": "jest --watch",
     "gulp": "cross-env NODE_ENV=production gulp",
     "gulp:dev": "cross-env NODE_ENV=development gulp",
-    "gulp:build": "cross-env IS_BUILD=true gulp build",
-    "gulp:deploy": "cross-env IS_BUILD=true gulp deploy"
+    "gulp:build": "cross-env WATCH=false gulp build",
+    "gulp:deploy": "cross-env WATCH=false gulp deploy"
   },
   "keywords": [],
   "author": "",

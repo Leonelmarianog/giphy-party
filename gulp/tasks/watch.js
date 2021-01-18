@@ -6,10 +6,10 @@ const { runJSTasks, runJSTasksDev } = require('./scripts');
 const { runCSSTasks, runCSSTasksDev } = require('./styles');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const isBuild = process.env.IS_BUILD;
+const watching = process.env.WATCH !== 'false';
 
 function runWatch() {
-  if (isBuild) {
+  if (!watching) {
     return;
   }
 
