@@ -1,7 +1,7 @@
 {
   "name": "giphy-party",
   "version": "1.0.0",
-  "description": "",
+  "description": "A webpage where you can search gifs provided by GIPHY.",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
