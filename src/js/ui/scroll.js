@@ -3,15 +3,15 @@ function scrollToTop() {
 }
 
 function renderButton() {
-  const $button = document.querySelector('#scrollToTop');
+  let $scrollToTopButton = document.querySelector('#scroll-to-top');
 
-  if ($button) {
+  if ($scrollToTopButton) {
     return;
   }
 
   const $container = document.querySelector('#container');
-  const $scrollToTopButton = document.createElement('button');
-  $scrollToTopButton.id = 'scrollToTop';
+  $scrollToTopButton = document.createElement('button');
+  $scrollToTopButton.id = 'scroll-to-top';
   $scrollToTopButton.classList.add('scroll-btn');
   $scrollToTopButton.textContent = '▲';
   $scrollToTopButton.onclick = scrollToTop;
@@ -19,13 +19,13 @@ function renderButton() {
 }
 
 function removeButton() {
-  const $button = document.querySelector('#scrollToTop');
+  const $scrollToTopButton = document.querySelector('#scroll-to-top');
 
-  if (!$button) {
+  if (!$scrollToTopButton) {
     return;
   }
 
-  $button.remove();
+  $scrollToTopButton.remove();
 }
 
 function formPosition(position) {
