@@ -6,7 +6,7 @@ const { runJSTasks, runJSTasksDev } = require('./scripts');
 const startServer = require('./server');
 const { runCSSTasks, runCSSTasksDev } = require('./styles');
 const runWatch = require('./watch');
-const runDeploy = require('./deploy');
+const deploy = require('./deploy');
 
 module.exports = {
   runTasksDev: series([
@@ -16,5 +16,5 @@ module.exports = {
   runTasksProd: series([parallel([runJSTasks, runCSSTasks, runIMGTasks, copyHTML]), startServer]),
   runWatch,
   runBuild: parallel([runJSTasks, runCSSTasks, runIMGTasks, copyHTML]),
-  runDeploy,
+  runDeploy: series([parallel([runJSTasks, runCSSTasks, runIMGTasks, copyHTML]), deploy]),
 };
