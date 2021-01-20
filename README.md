@@ -26,7 +26,7 @@ npm run gulp:dev # Run project in development mode.
 
 This project uses [Cypress](https://www.cypress.io/) for E2E testing and [Jest](https://jestjs.io/) for Unit Tests.
 
-**Important**: Remember to create a build before running UI tests `npm run gulp:build`.
+**Important**: Remember to create a build before running UI tests! `npm run gulp:build`.
 
 ```
 npm run test:dev # Run Jest Unit Tests
@@ -37,7 +37,7 @@ npm run test:ui:dev # Run UI tests
 
 # Deployment to GH-pages with Gulp
 
-Deployment is made using gulp plugin [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages). Check the documentation to see how to add a custom commit message and specify the folder you want to deploy to gh-pages.
+Deployment is made using [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages). Check the documentation to see how to add a custom commit message and specify the folder you want to deploy to gh-pages.
 
 Steps:
 
@@ -54,33 +54,3 @@ git checkout master
 ```
 
 2. Run `npm run gulp:deploy`.
-
-# Deployment with Codeship and Gulp
-
-Deployment to GH-pages with Codeship is done with a custom script. Make sure you set a git username and email with access to your repository in your script before running the deploy command, otherwise it will not work.
-
-Steps:
-
-1. Create a gh-branch
-
-```
-git checkout --orphan gh-pages
-git rm -rf .
-touch README.md
-git add README.md
-git commit -m "Init gh-pages --skip-ci"
-git push --set-upstream origin gh-pages
-git checkout master
-```
-
-**Note**: The "--skip-ci" tells Codeship to skip the current build.
-
-2. On Codeship, in your project configuration , select the deploy tab, then select the "script" option and paste the following:
-
-```
-git config --global user.email "a git user email"
-git config --global user.name "a git user name"
-npm run gulp:deploy
-```
-
-Now, Codeship will deploy to the gh-pages branch everytime a build passes all specified tests. The commit message and the files deployed are specified in the gulp-gh-pages plugin.
